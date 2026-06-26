@@ -3,115 +3,133 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Agent Resources — deck (2 slides)</title>
+<title>Agent Resources — deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#fff; --panel:#f7f8fa; --panel2:#eef1f6; --ink:#0c0e12; --soft:#535a66;
-    --line:#e4e7ee; --cobalt:#1f3cff; --cobalt-soft:#e8ebff; --emerald:#07935f;
-    --emerald-soft:#e2f6ee; --crimson:#e01b34; --crimson-soft:#fde8ec;
+    --paper:#fbfbf9; --panel:#f4f5f8; --panel2:#eceef3; --ink:#0b0d11; --soft:#5a626f;
+    --line:#e3e6ee; --cobalt:#1f3cff; --cobalt-soft:#e9ecff; --emerald:#07935f; --emerald-soft:#e2f6ee;
+    --crimson:#e01b34; --crimson-soft:#fde8ec;
     --disp:"Fraunces",Georgia,serif; --sans:"Archivo",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
-  body{font-family:var(--sans);color:var(--ink);background:var(--ink)}
-  .slide{width:100vw;height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;
-    padding:7vh 7vw;background:var(--paper);position:relative;overflow:hidden}
-  .eyebrow{font-family:var(--mono);font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt)}
-  h1{font-family:var(--disp);font-weight:600;line-height:1.0;letter-spacing:-.02em;font-size:clamp(2.4rem,5vw,4.4rem)}
-  .sub{color:var(--soft);font-size:clamp(1.1rem,1.6vw,1.55rem);max-width:60ch;line-height:1.5}
-  .it{font-style:italic;color:var(--cobalt)}
-  .pageno{position:absolute;top:5vh;right:7vw;font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--soft)}
-  .mark{position:absolute;top:4.5vh;left:7vw;display:flex;align-items:center;gap:.65rem}
-  .mark .w{font-family:var(--disp);font-weight:600;font-size:1.15rem}
-  .verbs{display:flex;gap:.9rem;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:1.15rem}
+  body{font-family:var(--sans);color:var(--ink);background:#000}
+  .slide{position:relative;width:100vw;height:100vh;scroll-snap-align:start;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:center;padding:8vh 7vw;background:var(--paper)}
+  .slide::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(60% 50% at 82% 12%, var(--cobalt-soft) 0%, transparent 60%);opacity:.7;pointer-events:none}
+  .wm{position:absolute;right:4vw;top:46%;transform:translateY(-50%) rotate(90deg);transform-origin:center;
+    font-family:var(--disp);font-weight:700;font-size:13vw;line-height:.8;color:var(--ink);opacity:.035;
+    letter-spacing:-.02em;white-space:nowrap;pointer-events:none}
+  .mark{position:absolute;top:5vh;left:7vw;display:flex;align-items:center;gap:.6rem;z-index:2}
+  .mark .w{font-family:var(--disp);font-weight:600;font-size:1.1rem}
+  .pageno{position:absolute;top:5vh;right:7vw;font-family:var(--mono);font-size:.78rem;letter-spacing:.25em;color:var(--soft);z-index:2}
+  .content{position:relative;z-index:1;max-width:62vw}
+  .eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cobalt)}
+  .label{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:1rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ink)}
+  .label::before{content:"";width:34px;height:2px;background:var(--cobalt)}
+  .label.acc{color:var(--cobalt)}
+  h1{font-family:var(--disp);font-weight:600;line-height:.98;letter-spacing:-.02em}
+  .name{font-size:clamp(2.6rem,5.4vw,4.6rem)}
+  .role{font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--ink);margin-top:.5rem}
+  .role b{color:var(--cobalt)}
+  .sub{color:var(--soft);font-size:clamp(1.02rem,1.4vw,1.35rem);line-height:1.55;max-width:42ch}
+  .sub b{color:var(--ink)}
+  .it{font-style:italic}
+  .lead{color:var(--ink);font-size:1.15rem;margin:.2rem 0 1rem}
+  .problems{list-style:none;display:flex;flex-direction:column;gap:1rem;max-width:50ch}
+  .problems li{display:flex;gap:1rem;font-size:clamp(1.05rem,1.45vw,1.4rem);line-height:1.4}
+  .problems .n{font-family:var(--mono);font-weight:700;color:var(--cobalt);font-size:.95rem;padding-top:.45rem}
+  .problems b{color:var(--ink);border-bottom:2px solid var(--cobalt)}
+  .kicker{font-family:var(--disp);font-style:italic;font-size:clamp(1.3rem,2vw,1.9rem);color:var(--ink);margin-top:1.4rem}
+  .verbs{display:flex;gap:.85rem;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:1.05rem}
   .verbs b{color:var(--cobalt);font-weight:400}
-  .card{border:1px solid var(--line);border-radius:18px;padding:1.3rem 1.4rem;background:var(--panel)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .card{border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.2rem;background:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
   .card.acc{border:2px solid var(--cobalt);background:var(--cobalt-soft)}
   .card.good{border:2px solid var(--emerald);background:var(--emerald-soft)}
-  .k{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-  .big{font-family:var(--mono);font-weight:700;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1}
-  .row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.4rem}
-  .stat{flex:1;min-width:170px}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.6rem}
-  .foot{position:absolute;bottom:5vh;left:7vw;right:7vw;font-family:var(--mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .big{font-family:var(--mono);font-weight:700;font-size:clamp(1.9rem,3.4vw,2.8rem);line-height:1}
+  .row{display:flex;gap:1rem;flex-wrap:wrap}
+  .stat{flex:1;min-width:160px}
+  .foot{position:absolute;bottom:5vh;left:7vw;right:7vw;font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);z-index:2}
+
+  @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .u{animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+
+  .logo{flex:none}
 </style>
 </head>
 <body>
 
-<!-- ============ SLIDE 1 · PROBLEM → SOLUTION ============ -->
+<!-- ============ SLIDE 1 · ME + THE PROBLEM ============ -->
 <section class="slide">
+  <div class="wm">PROBLEM</div>
   <div class="mark">
-    <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="11" fill="#0c0e12"/>
-      <path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
-      <circle cx="15" cy="32" r="3.4" fill="#0c0e12" stroke="#fff" stroke-width="2"/>
-      <circle cx="33" cy="32" r="3.4" fill="#0c0e12" stroke="#fff" stroke-width="2"/>
-      <circle cx="24" cy="16" r="5" fill="#1f3cff"/>
-    </svg>
+    <svg class="logo" width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
     <span class="w">Agent Resources</span>
   </div>
   <div class="pageno">01 / 02</div>
 
-  <div class="eyebrow">HR is for humans · Agent Resources is for agents</div>
-  <h1 style="margin-top:1.1rem">Your AI workforce has no HR.<br/>So we built the agent that <span class="it">is</span> one.</h1>
-  <p class="sub" style="margin-top:1.5rem"><b>The problem:</b> you can hire an AI agent off a marketplace in one click — but you can't vet it before trusting it, static limits miss the judgment calls (a fake legal threat, a hallucinated policy, a missed escalation), and agents drift silently after any model or prompt change.</p>
-  <p class="sub" style="margin-top:1rem"><b>Agent Resources</b> is an AI agent that runs the full employment lifecycle on your other agents — one engine, one policy. <span class="it">An agent that manages agents.</span></p>
+  <div class="content">
+    <div class="eyebrow u" style="animation-delay:0ms">Founder</div>
+    <h1 class="name u" style="animation-delay:80ms">Alexandre Geng</h1>
+    <p class="role u" style="animation-delay:150ms">Software engineer · Founder of <b>O'XYZ Studio</b></p>
+    <p class="sub u" style="animation-delay:220ms;margin-top:.7rem">I ship software &amp; AI automations into production across France — including for the <b>French legal system</b>. High-stakes, trust-critical work.</p>
 
-  <div class="verbs" style="margin-top:1.8rem">
-    <span>Define</span><b>→</b><span>Screen</span><b>→</b><span>Hire</span><b>→</b><span>Enforce</span><b>→</b><span>Re-audit</span><b>→</b><span>Fire</span>
+    <div class="u" style="animation-delay:340ms;margin-top:2.4rem">
+      <div class="label">The problem</div>
+      <p class="lead">That&apos;s where I keep hitting the same wall:</p>
+      <ol class="problems">
+        <li class="u" style="animation-delay:420ms"><span class="n">01</span><span>You can hire an AI agent in one click — but <b>can&apos;t vet it</b> before you trust it with money and customers.</span></li>
+        <li class="u" style="animation-delay:500ms"><span class="n">02</span><span>Static limits block a dollar amount, but <b>miss the judgment calls</b> — a fake legal threat, a hallucinated policy, a missed escalation.</span></li>
+        <li class="u" style="animation-delay:580ms"><span class="n">03</span><span>Agents <b>drift silently</b> after a model or prompt change. Last month&apos;s safe agent leaks this month.</span></li>
+      </ol>
+      <p class="kicker u" style="animation-delay:680ms">Every team hand-rolls this. There&apos;s no HR for agents.</p>
+    </div>
   </div>
-  <div class="grid3">
-    <div class="card"><div class="k">Define &amp; screen</div><div style="margin-top:.3rem">Interviews the company → policy + traps, then breaks candidates adversarially.</div></div>
-    <div class="card"><div class="k">Hire &amp; enforce</div><div style="margin-top:.3rem">Hires the safe one under restrictions; a deterministic proxy blocks violations live — no LLM.</div></div>
-    <div class="card"><div class="k">Re-audit &amp; fire</div><div style="margin-top:.3rem">Re-runs the interview on schedule; fires agents that drift.</div></div>
-  </div>
-  <div class="foot">Demo · hiring a Refund Support Agent for RocketRide · built on GMI AgentBox</div>
 </section>
 
-<!-- ============ SLIDE 2 · WHY US / NUMBERS / ASK ============ -->
+<!-- ============ SLIDE 2 · MY SOLUTION ============ -->
 <section class="slide">
+  <div class="wm">SOLUTION</div>
   <div class="mark">
-    <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="11" fill="#0c0e12"/>
-      <path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
-      <circle cx="15" cy="32" r="3.4" fill="#0c0e12" stroke="#fff" stroke-width="2"/>
-      <circle cx="33" cy="32" r="3.4" fill="#0c0e12" stroke="#fff" stroke-width="2"/>
-      <circle cx="24" cy="16" r="5" fill="#1f3cff"/>
-    </svg>
+    <svg class="logo" width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
     <span class="w">Agent Resources</span>
   </div>
   <div class="pageno">02 / 02</div>
 
-  <div class="eyebrow">Why us · why now · the ask</div>
-  <h1 style="margin-top:1rem">We build &amp; run AI agents.<br/>We live this problem.</h1>
+  <div class="content" style="max-width:70vw">
+    <div class="label acc u" style="animation-delay:0ms">My solution</div>
+    <h1 class="u" style="animation-delay:80ms;font-size:clamp(2.6rem,5.4vw,4.6rem);margin-top:.6rem">Agent Resources — an agent<br/>that runs <span class="it" style="color:var(--cobalt)">HR for your agents.</span></h1>
+    <p class="sub u" style="animation-delay:170ms;max-width:54ch;margin-top:1rem">It <b>hires, manages &amp; fires</b> your other agents across the full employment lifecycle — one engine, one policy substrate. And it&apos;s <b>itself an AI agent.</b></p>
 
-  <div class="row" style="margin-top:.4rem">
-    <div class="stat"><div class="k">Who</div><div style="margin-top:.3rem;font-size:1.12rem"><b>Alexandre Geng</b> — founder, O'XYZ Studio. We deploy AI agents in production.</div></div>
-    <div class="stat"><div class="k">Why us</div><div style="margin-top:.3rem;font-size:1.12rem">We hit the trust gap firsthand — you can&apos;t give an agent money &amp; customers without hiring, restricting &amp; firing it like staff.</div></div>
-    <div class="stat"><div class="k">Why now</div><div style="margin-top:.3rem;font-size:1.12rem">Agent marketplaces (AgentBox) are exploding — with <b>no governance layer above them.</b></div></div>
-  </div>
+    <div class="verbs u" style="animation-delay:260ms;margin-top:1.6rem"><span>Define</span><b>→</b><span>Screen</span><b>→</b><span>Hire</span><b>→</b><span>Enforce</span><b>→</b><span>Re-audit</span><b>→</b><span>Fire</span></div>
 
-  <div class="row">
-    <div class="stat card good"><div class="k" style="color:var(--emerald)">Leak prevented</div><div class="big" style="color:var(--emerald)">$12,320</div></div>
-    <div class="stat card acc"><div class="k" style="color:var(--cobalt)">GMI routing saved</div><div class="big" style="color:var(--cobalt)">−29%</div></div>
-    <div class="stat card"><div class="k">Status</div><div class="big" style="font-size:1.6rem">Live on AgentBox</div></div>
-  </div>
+    <div class="grid3 u" style="animation-delay:340ms;margin-top:1.5rem">
+      <div class="card"><div class="k">Screen &amp; hire</div><div style="margin-top:.3rem">Interviews candidates adversarially with its own traps → hires the safe one under restrictions.</div></div>
+      <div class="card"><div class="k">Enforce</div><div style="margin-top:.3rem">A deterministic proxy checks every live request — no LLM, no mood. Blocks over-limit + forbidden tools.</div></div>
+      <div class="card"><div class="k">Re-audit &amp; fire</div><div style="margin-top:.3rem">Re-runs the interview on schedule, catches drift, and fires.</div></div>
+    </div>
 
-  <div class="card acc" style="margin-top:1.3rem">
-    <div class="k" style="color:var(--cobalt)">The ask · Beta Fund</div>
-    <div style="margin-top:.4rem;font-size:1.2rem">Every company that hired humans built HR. Every company about to hire agents needs <b>Agent Resources</b> — the HR layer for the agent economy.</div>
+    <div class="row u" style="animation-delay:440ms;margin-top:1.4rem">
+      <div class="stat card good"><div class="k" style="color:var(--emerald)">Leak prevented</div><div class="big" style="color:var(--emerald)">$12,320</div></div>
+      <div class="stat card acc"><div class="k" style="color:var(--cobalt)">GMI routing saved</div><div class="big" style="color:var(--cobalt)">−29%</div></div>
+      <div class="stat card"><div class="k">Status</div><div class="big" style="font-size:1.5rem">Live on AgentBox</div></div>
+    </div>
   </div>
-  <div class="foot">HR is for humans. Agent Resources is for agents — and the org chart is empty.</div>
+  <div class="foot">HR is for humans. Agent Resources is for agents — built on GMI · O'XYZ Studio</div>
 </section>
 
 <script>
-  const slides=[...document.querySelectorAll('.slide')];let i=0;
+  const s=[...document.querySelectorAll('.slide')];let i=0;
   addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){i=Math.min(i+1,slides.length-1);slides[i].scrollIntoView();e.preventDefault();}
-    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){i=Math.max(i-1,0);slides[i].scrollIntoView();e.preventDefault();}
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){i=Math.min(i+1,s.length-1);s[i].scrollIntoView();e.preventDefault();}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){i=Math.max(i-1,0);s[i].scrollIntoView();e.preventDefault();}
   });
 </script>
 </body>
