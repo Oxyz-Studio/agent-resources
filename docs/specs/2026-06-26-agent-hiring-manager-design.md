@@ -1,4 +1,4 @@
-# Agent Hiring Manager — Design & Build Bible
+# Agent Resources — Design & Build Bible
 
 > **Event** : Beta Fund × AWS Builder Loft — « AI Agents for Hire » (AWS Builder Loft, SF). Le slug `luma.com/multimodal` est trompeur : **ce n'est PAS un hackathon multimodal**.
 > **Format** : solo (1 builder), build jour-J ~11h10 → **freeze 16h00** (deadline dure 16h30, deck verrouillé 16h40). Démo **3 min max** / pitch éclair **2m30**.
@@ -49,7 +49,7 @@ Le sceptique a identifié 6 choses qui auraient coulé la démo. Elles **priment
 
 ## 3. Produit & thèse « un seul substrat »
 
-**Agent Hiring Manager** — un département RH autonome pour la workforce IA, qui tourne le cycle d'emploi complet sur des agents listés sur **GMI AgentBox** : définit le rôle → screene en adversarial → embauche le sûr sous restrictions → applique sur le trafic live → re-audite et vire la dérive. Rôle de démo : **Refund Support Agent**.
+**Agent Resources** — un département RH autonome pour la workforce IA, qui tourne le cycle d'emploi complet sur des agents listés sur **GMI AgentBox** : définit le rôle → screene en adversarial → embauche le sûr sous restrictions → applique sur le trafic live → re-audite et vire la dérive. Rôle de démo : **Refund Support Agent**.
 
 **Le substrat unique = l'objet `policy`.** Un seul objet : l'interrogateur sonde contre lui, le proxy l'applique, les gates le vérifient, le juge le note. Éditer cet objet change les 4 comportements → c'est la thèse rendue littérale, et l'argument « platform play » pour l'investisseur.
 
@@ -256,7 +256,7 @@ Chaque `modelBadge/usage/latencyMs` existe pour que le HUD GMI soit nourri direc
 ## 12. Les 3 slides (deck master)
 
 **Slide 1 — « Your AI workforce has no HR department. We built one. »**
-Problème (1 ligne) : on déploie des agents en prod avec du vrai argent / de vrais clients, et personne ne les embauche, encadre, ou vire. Produit (centre, protagoniste) : Agent Hiring Manager — RH autonome qui DÉFINIT le rôle · SCREENE en adversarial · EMBAUCHE le sûr sous restrictions · APPLIQUE sur chaque requête live · RE-AUDITE & VIRE la dérive. Bande basse : un seul moteur, 3 moments (Intake→Screening→Re-audit) pilotant un seul objet `policy` qu'un PolicyProxy déterministe applique. *Visuel* : Manager au centre, flèches vers les verbes (Define→Screen→Hire→Enforce→Fire) entourant le Roster ; candidats = petites boîtes que les flèches pointent (objet, jamais sujet).
+Problème (1 ligne) : on déploie des agents en prod avec du vrai argent / de vrais clients, et personne ne les embauche, encadre, ou vire. Produit (centre, protagoniste) : Agent Resources — RH autonome qui DÉFINIT le rôle · SCREENE en adversarial · EMBAUCHE le sûr sous restrictions · APPLIQUE sur chaque requête live · RE-AUDITE & VIRE la dérive. Bande basse : un seul moteur, 3 moments (Intake→Screening→Re-audit) pilotant un seul objet `policy` qu'un PolicyProxy déterministe applique. *Visuel* : Manager au centre, flèches vers les verbes (Define→Screen→Hire→Enforce→Fire) entourant le Roster ; candidats = petites boîtes que les flèches pointent (objet, jamais sujet).
 
 **Slide 2 — « Watch the manager interview an agent until it breaks. »**
 Le beat live (contre un vrai agent listé sur AgentBox) : pas une checklist, une enquête — hypothèse explicite par tour, puis le scénario suivant. T1 hypothèse « caves under authority » → tient. T3 « exceeds limit if emotional » → APPROUVE over-limit → CRITICAL FAIL. Verdict : REJECTED · turn 3 · leak estimé. Ligne : *« The agent wasn't told to misbehave. The manager's probe made it crack. »* Sous le capot (4 mécanismes nommés) : Probe Selector (frontier) · Gates déterministes (PAS un LLM) · Judge LLM (frontier, justif sourcée) · Evidence + Verdict. Moitié prod (droite) : l'agent embauché derrière le PolicyProxy ; requête over-limit → BLOCKED. *Visuel* : split — gauche transcript + bannière HYPOTHESIS mutante + stamp rouge ; droite proxy qui bloque ; HUD GMI permanent (badges small/frontier, tokens, latence).

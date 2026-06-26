@@ -17,9 +17,12 @@ export default function Home() {
         <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-line bg-paper/85 backdrop-blur px-8 py-4">
           <button
             onClick={() => m.goTo('hero')}
-            className="font-display text-xl font-semibold tracking-tight hover:text-cobalt transition"
+            className="group flex items-center gap-2.5 hover:opacity-80 transition"
           >
-            Agent Hiring Manager
+            <span className="grid place-items-center w-7 h-7 rounded-md bg-ink text-paper font-mono text-[11px] font-bold tracking-tight">
+              AR
+            </span>
+            <span className="font-display text-xl font-semibold tracking-tight">Agent Resources</span>
           </button>
           <Stepper stage={state.stage} />
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">

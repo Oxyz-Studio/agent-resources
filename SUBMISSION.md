@@ -1,6 +1,6 @@
-# Agent Hiring Manager — Submission & Run Runbook
+# Agent Resources — Submission & Run Runbook
 
-> HR for your AI workforce: it defines the job, screens candidates, hires the safe one under restrictions, enforces in production, and fires the ones that drift. Built on GMI (MaaS + AgentBox).
+> HR is for humans. Agent Resources is for agents — the AI agent that hires, manages & fires your other agents. It defines the job, screens candidates, hires the safe one under restrictions, enforces in production, and fires the ones that drift. Built on GMI (MaaS + AgentBox).
 
 ## Run the demo (local)
 

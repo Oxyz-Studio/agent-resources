@@ -7,8 +7,8 @@ const sans = Archivo({ variable: '--ff-sans', subsets: ['latin'] })
 const mono = JetBrains_Mono({ variable: '--ff-mono', subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Agent Hiring Manager',
-  description: 'HR for your AI workforce — hire, manage, and fire the agents you put in production.',
+  title: 'Agent Resources',
+  description: 'HR is for humans. Agent Resources is for agents — hire, manage, and fire the agents you put in production.',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

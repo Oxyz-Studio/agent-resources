@@ -9,8 +9,14 @@ export function Hero({ onStart }: { onStart: () => void }) {
       <div className="absolute -top-32 -right-24 w-[36rem] h-[36rem] rounded-full bg-cobalt-soft blur-3xl opacity-50 float-y pointer-events-none" />
 
       <div className="relative max-w-5xl text-center">
-        <div className="anim-fade-up" style={{ animationDelay: '0ms' }}>
-          <Eyebrow>An HR department for your AI workforce</Eyebrow>
+        <div className="anim-fade-up flex items-center justify-center gap-2.5 mb-7" style={{ animationDelay: '0ms' }}>
+          <span className="grid place-items-center w-8 h-8 rounded-md bg-ink text-paper font-mono text-xs font-bold">
+            AR
+          </span>
+          <span className="font-display text-lg font-semibold tracking-tight">Agent Resources</span>
+        </div>
+        <div className="anim-fade-up" style={{ animationDelay: '60ms' }}>
+          <Eyebrow>HR is for humans · Agent Resources is for agents</Eyebrow>
         </div>
 
         <h1
@@ -29,7 +35,8 @@ export function Hero({ onStart }: { onStart: () => void }) {
           style={{ animationDelay: '180ms' }}
         >
           Companies are shipping AI agents that touch real money and real customers — with no
-          interview, no restrictions, and no way to fire the one that drifts. We&apos;re the manager.
+          interview, no restrictions, and no way to fire the one that drifts. Agent Resources is the
+          manager — itself an AI agent that hires, manages &amp; fires your other agents.
         </p>
 
         <div
