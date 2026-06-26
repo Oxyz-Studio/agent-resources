@@ -6,9 +6,10 @@
 
 - [x] **Image pushed** → `ghcr.io/oxyz-studio/refund-support-agent:latest` (public)
 - [x] **Deployed + LISTED on AgentBox** (the mandatory item) → **LIVE · Verified by GMI · CE + MaaS**
-  - Listing: `https://console.gmicloud.ai/user-console/ie/agentbox/browse-agents/refund-support-agent`
-  - Template ID: `6fc668c3-28da-4587-a969-4203bff53de3` (use with the GMI_MAAS_API_KEY shown once at register to spin instances via `POST /v1/agents/deployments/agent-resources-refund/tasks`)
-- [x] **Open-source repo (public)** → https://github.com/Oxyz-Studio/agent-resources
+  - **Refund Support Agent** (the worker) → `https://console.gmicloud.ai/user-console/ie/agentbox/browse-agents/refund-support-agent` · Template ID `6fc668c3-28da-4587-a969-4203bff53de3`
+  - **Agent Resources** (the manager — interviews any agent and returns a hiring verdict) → `https://console.gmicloud.ai/user-console/ie/agentbox/browse-agents/agent-resources` · Template ID `2dc7357a-a6fc-400d-b9bd-816a5024e04d`
+  - Both: GMI CE + MaaS · Verified by GMI. The recursive pitch, live on the marketplace.
+- [x] **Open-source repo (public)** → https://github.com/Oxyz-Studio/agent-resources (includes `agentbox-candidate/` + `agentbox-manager/`)
 - [ ] **Slides** into the Master Submission Deck — content in `docs/deck.html` (2 slides; 3rd = the live demo)
 - [ ] **Video OR live demo URL** — screen-record the demo (`npm run dev`, REPLAY)
 - [ ] **Butterbase** form — team + contact
