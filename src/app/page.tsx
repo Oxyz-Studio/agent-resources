@@ -1,6 +1,7 @@
 'use client'
 
 import { useManager } from '@/components/manager/useManager'
+import { Logo } from '@/components/manager/Logo'
 import { Stepper } from '@/components/manager/Stepper'
 import { Hero } from '@/components/manager/Hero'
 import { IntakeScreen } from '@/components/manager/IntakeScreen'
@@ -19,9 +20,7 @@ export default function Home() {
             onClick={() => m.goTo('hero')}
             className="group flex items-center gap-2.5 hover:opacity-80 transition"
           >
-            <span className="grid place-items-center w-7 h-7 rounded-md bg-ink text-paper font-mono text-[11px] font-bold tracking-tight">
-              AR
-            </span>
+            <Logo size={28} />
             <span className="font-display text-xl font-semibold tracking-tight">Agent Resources</span>
           </button>
           <Stepper stage={state.stage} />

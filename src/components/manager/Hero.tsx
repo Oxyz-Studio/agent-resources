@@ -1,4 +1,5 @@
 import { Eyebrow } from './ui'
+import { Logo } from './Logo'
 
 const VERBS = ['Define', 'Screen', 'Hire', 'Enforce', 'Re-audit', 'Fire']
 
@@ -10,9 +11,7 @@ export function Hero({ onStart }: { onStart: () => void }) {
 
       <div className="relative max-w-5xl text-center">
         <div className="anim-fade-up flex items-center justify-center gap-2.5 mb-7" style={{ animationDelay: '0ms' }}>
-          <span className="grid place-items-center w-8 h-8 rounded-md bg-ink text-paper font-mono text-xs font-bold">
-            AR
-          </span>
+          <Logo size={34} />
           <span className="font-display text-lg font-semibold tracking-tight">Agent Resources</span>
         </div>
         <div className="anim-fade-up" style={{ animationDelay: '60ms' }}>
