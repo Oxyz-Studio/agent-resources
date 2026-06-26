@@ -33,9 +33,10 @@ export function Hero({ onStart }: { onStart: () => void }) {
           className="anim-fade-up mx-auto mt-8 max-w-2xl text-lg md:text-xl text-ink-soft leading-relaxed"
           style={{ animationDelay: '180ms' }}
         >
-          Companies are shipping AI agents that touch real money and real customers — with no
-          interview, no restrictions, and no way to fire the one that drifts. Agent Resources is the
-          manager — itself an AI agent that hires, manages &amp; fires your other agents.
+          Anyone can hire an AI agent off a marketplace in one click — but you can&apos;t vet it before
+          you trust it, static limits miss the judgment calls, and agents drift silently after a model
+          or prompt change. Agent Resources is the manager — itself an AI agent that hires, manages
+          &amp; fires your other agents.
         </p>
 
         <div
