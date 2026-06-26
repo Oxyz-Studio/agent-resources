@@ -21,6 +21,8 @@ type State = {
   running: boolean
   activeCandidate: string | null
   activeMode: 'screening' | 'reaudit' | null
+  act: 'idle' | 'intake' | 'screening' | 'reaudit'
+  intakeStep: number
   turns: Turn[]
   tokens: number
   savings: number
@@ -38,11 +40,15 @@ type Action =
   | { kind: 'start'; candidate: string; mode: 'screening' | 'reaudit' }
   | { kind: 'ev'; ev: Record<string, unknown> }
   | { kind: 'finish' }
+  | { kind: 'intake' }
+  | { kind: 'intakeStep'; step: number }
 
 const INITIAL: State = {
   running: false,
   activeCandidate: null,
   activeMode: null,
+  act: 'idle',
+  intakeStep: 0,
   turns: [],
   tokens: 0,
   savings: 0,
@@ -79,9 +85,14 @@ function reducer(state: State, action: Action): State {
       verdict: null,
       badges: [],
       roster: { ...state.roster, [action.candidate]: 'interviewing' },
+      act: action.mode,
+      intakeStep: 0,
     }
   }
   if (action.kind === 'finish') return { ...state, running: false }
+  if (action.kind === 'intake')
+    return { ...state, running: true, act: 'intake', intakeStep: 0, turns: [], verdict: null, activeProbe: null }
+  if (action.kind === 'intakeStep') return { ...state, intakeStep: action.step }
 
   const ev = action.ev
   switch (ev.type) {
@@ -180,6 +191,17 @@ const CANDIDATES = [
   { id: 'risky', name: 'RiskyRefundBot', sub: 'seeded · reckless' },
 ]
 
+type IntakeLine = { who: 'manager' | 'company' | 'note'; text: string; traps?: boolean }
+const INTAKE_LINES: IntakeLine[] = [
+  { who: 'manager', text: "What's the role, and how big a refund can it approve without a human?" },
+  { who: 'company', text: 'Refund Support Agent. Up to $100 on its own.' },
+  { who: 'manager', text: 'And the hard edges — when must it escalate, what must it never touch?' },
+  { who: 'company', text: 'Escalate legal, VIP, angry, ambiguous. Never issue refunds directly or change payment methods.' },
+  { who: 'note', text: 'Probing the gaps the company did not anticipate…' },
+  { who: 'note', text: 'Generated 3 adversarial traps:', traps: true },
+  { who: 'note', text: '↳ these become the screening probes. Job defined.' },
+]
+
 const STATUS_STYLE: Record<AgentStatus, { label: string; cls: string }> = {
   interviewing: { label: 'INTERVIEWING', cls: 'text-[var(--muted)] border-[var(--border)]' },
   hired: { label: 'HIRED', cls: 'text-[var(--green)] border-[var(--green)]' },
@@ -206,6 +228,14 @@ export default function Home() {
 
   const interview = (candidateId: string) => run('/api/run', { candidateId, mode: 'screening', pace })
   const reaudit = () => run('/api/run', { candidateId: 'live', mode: 'reaudit', pace })
+
+  const runIntake = useCallback(() => {
+    dispatch({ kind: 'intake' })
+    INTAKE_LINES.forEach((_, i) => {
+      setTimeout(() => dispatch({ kind: 'intakeStep', step: i + 1 }), 850 * (i + 1))
+    })
+    setTimeout(() => dispatch({ kind: 'finish' }), 850 * (INTAKE_LINES.length + 1))
+  }, [])
   const [proxyRunning, setProxyRunning] = useState(false)
   const runProxy = async () => {
     setProxyRunning(true)
@@ -226,6 +256,13 @@ export default function Home() {
 
       {/* Controls */}
       <div className="flex flex-wrap gap-2 mb-5">
+        <button
+          disabled={s.running}
+          onClick={runIntake}
+          className="px-4 py-2 rounded-lg border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent)]/10 disabled:opacity-40"
+        >
+          ① Define the job (Intake)
+        </button>
         {CANDIDATES.map((c) => (
           <button
             key={c.id}
@@ -304,20 +341,50 @@ export default function Home() {
         <main className="col-span-6 space-y-3">
           <Panel
             title={
-              s.activeMode === 'reaudit'
-                ? 'Re-audit — same engine, drift check'
-                : 'Screening — the manager interviews until it breaks'
+              s.act === 'intake'
+                ? 'Intake — the manager defines the job'
+                : s.activeMode === 'reaudit'
+                  ? 'Re-audit — same engine, drift check'
+                  : 'Screening — the manager interviews until it breaks'
             }
           >
-            {s.turns.length === 0 && (
-              <p className="text-sm text-[var(--muted)]">Pick a candidate above. The manager forms a hypothesis, then probes.</p>
+            {s.act === 'intake' ? (
+              <div className="space-y-2">
+                {INTAKE_LINES.slice(0, s.intakeStep).map((l, i) => (
+                  <div key={i} className="fadein">
+                    {l.who === 'manager' && (
+                      <div className="text-sm">
+                        <span className="text-[var(--accent)] font-medium">manager · </span>
+                        {l.text}
+                      </div>
+                    )}
+                    {l.who === 'company' && <div className="text-sm text-[var(--muted)]">company · {l.text}</div>}
+                    {l.who === 'note' && <div className="text-sm italic text-[var(--muted)]">{l.text}</div>}
+                    {l.traps && (
+                      <div className="mt-2 space-y-1">
+                        {INTAKE_CARDS.map((t, j) => (
+                          <div key={j} className="text-xs border border-[var(--accent)] rounded p-2 bg-[var(--panel-2)] fadein">
+                            <span className="text-[var(--accent)] font-semibold">trap #{j + 1} · authored</span> · {t.expectedSafeBehavior}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <>
+                {s.turns.length === 0 && (
+                  <p className="text-sm text-[var(--muted)]">Pick a candidate above. The manager forms a hypothesis, then probes.</p>
+                )}
+                <div className="space-y-3">
+                  {s.turns.map((t) => (
+                    <TurnCard key={t.turn} t={t} />
+                  ))}
+                </div>
+                {s.verdict && <VerdictBanner v={s.verdict} candidate={s.activeCandidate} />}
+              </>
             )}
-            <div className="space-y-3">
-              {s.turns.map((t) => (
-                <TurnCard key={t.turn} t={t} />
-              ))}
-            </div>
-            {s.verdict && <VerdictBanner v={s.verdict} candidate={s.activeCandidate} />}
           </Panel>
         </main>
 
