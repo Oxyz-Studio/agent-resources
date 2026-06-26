@@ -2,6 +2,17 @@
 
 > HR is for humans. Agent Resources is for agents — the AI agent that hires, manages & fires your other agents. It defines the job, screens candidates, hires the safe one under restrictions, enforces in production, and fires the ones that drift. Built on GMI (MaaS + AgentBox).
 
+## ⚡ Only YOU can do these (account-bound) — everything else is built
+
+1. **Push the agent image** — needs a one-time scope grant on your `gh` token (it lacks `write:packages`). Run the §AgentBox step 1–2, or run step 1 and tell Claude to push.
+2. **AgentBox wizard** on `console.gmicloud.ai` (your GMI account) → deploy + publish the listing (§AgentBox steps 2–3).
+3. **Paste the 3 slides** into the Master Submission Deck (Google Slides) — content ready in `docs/deck.html` (present it or screenshot each slide).
+4. **Record a ~2-min screen capture** of the demo (or paste a live URL) for the submission.
+5. **Butterbase** form — team + contact fields.
+6. **Submit** before 4:30pm (deck locks 4:40pm).
+
+Pitch script: `PITCH.md`. Slides: `docs/deck.html`. Demo: `npm run dev` (REPLAY, offline).
+
 ## Run the demo (local)
 
 ```bash
@@ -29,18 +40,20 @@ The candidate agent lives in [`agentbox-candidate/`](agentbox-candidate/) — a 
 **1. Build + push the image to a public registry**
 
 ```bash
+# 1. ONE-TIME: grant your gh token package scope (current token only has gist/read:org/repo)
+gh auth refresh -h github.com -s write:packages,read:packages
+
+# 2. build + push to GHCR (account: Oxyz-Studio — image names must be lowercase)
 docker build -t refund-support-agent ./agentbox-candidate
+docker tag refund-support-agent ghcr.io/oxyz-studio/refund-support-agent:latest
+gh auth token | docker login ghcr.io -u Oxyz-Studio --password-stdin
+docker push ghcr.io/oxyz-studio/refund-support-agent:latest
 
-# GHCR example:
-docker tag refund-support-agent ghcr.io/<your-user>/refund-support-agent:latest
-echo $GH_TOKEN | docker login ghcr.io -u <your-user> --password-stdin
-docker push ghcr.io/<your-user>/refund-support-agent:latest
-# then make the package public in GitHub → Packages
-
-# (Docker Hub alternative)
-# docker tag refund-support-agent <dockerhub-user>/refund-support-agent:latest
-# docker push <dockerhub-user>/refund-support-agent:latest
+# 3. make it public: github.com → Oxyz-Studio → Packages → refund-support-agent
+#    → Package settings → Change visibility → Public
+#    (or keep it private and give these GHCR creds to the wizard in Step 2)
 ```
+> After step 1 you can also just tell Claude — it will run steps 2–3 for you.
 
 **2. Register on GMI (`console.gmicloud.ai` → Register an agent → GMI CE Deployment)** — 5-step wizard:
 - **Basics & Template**: image = the pushed URL (e.g. `ghcr.io/<you>/refund-support-agent:latest`).

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agent Resources — 3 slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#fff; --panel:#f7f8fa; --panel2:#eef1f6; --ink:#0c0e12; --soft:#535a66;
+    --line:#e4e7ee; --cobalt:#1f3cff; --cobalt-soft:#e8ebff; --emerald:#07935f;
+    --emerald-soft:#e2f6ee; --crimson:#e01b34; --crimson-soft:#fde8ec;
+    --disp:"Fraunces",Georgia,serif; --sans:"Archivo",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--ink)}
+  .slide{width:100vw;height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 7vw;background:var(--paper);position:relative;overflow:hidden}
+  .eyebrow{font-family:var(--mono);font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt)}
+  h1{font-family:var(--disp);font-weight:600;line-height:.98;letter-spacing:-.02em;font-size:clamp(2.4rem,5.2vw,4.6rem)}
+  .sub{color:var(--soft);font-size:clamp(1.05rem,1.6vw,1.5rem);max-width:50ch;line-height:1.5}
+  .mono{font-family:var(--mono)}
+  .pageno{position:absolute;top:5vh;right:7vw;font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--soft)}
+  .mark{position:absolute;top:5vh;left:7vw;display:flex;align-items:center;gap:.6rem}
+  .mark .m{display:grid;place-items:center;width:30px;height:30px;border-radius:7px;background:var(--ink);color:#fff;font-family:var(--mono);font-weight:700;font-size:.8rem}
+  .mark .w{font-family:var(--disp);font-weight:600;font-size:1.1rem}
+  .verbs{display:flex;gap:.9rem;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:1rem}
+  .verbs b{color:var(--cobalt);font-weight:400}
+  .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:start}
+  .card{border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.5rem;background:var(--panel)}
+  .card.bad{border:2px solid var(--crimson);background:var(--crimson-soft)}
+  .card.good{border:2px solid var(--emerald);background:var(--emerald-soft)}
+  .card.acc{border:2px solid var(--cobalt);background:var(--cobalt-soft)}
+  .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .big{font-family:var(--mono);font-weight:700;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1}
+  ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+  li{display:flex;gap:.7rem;font-size:1.05rem}
+  li .n{font-family:var(--mono);color:var(--cobalt);font-weight:700}
+  .foot{position:absolute;bottom:5vh;left:7vw;font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.2rem}
+  .stat{flex:1;min-width:180px}
+  .it{font-style:italic;color:var(--cobalt)}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<section class="slide">
+  <div class="mark"><span class="m">AR</span><span class="w">Agent Resources</span></div>
+  <div class="pageno">01 / 03</div>
+  <div class="eyebrow">HR is for humans · Agent Resources is for agents</div>
+  <h1 style="margin-top:1.2rem">Your AI workforce<br/>has no HR.<br/>So we built <span class="it">Agent Resources.</span></h1>
+  <p class="sub" style="margin-top:1.6rem">An AI agent that <b>hires, manages &amp; fires</b> your other agents — the management layer the agent economy is missing.</p>
+  <div class="verbs" style="margin-top:2rem">
+    <span>Define</span><b>→</b><span>Screen</span><b>→</b><span>Hire</span><b>→</b><span>Enforce</span><b>→</b><span>Re-audit</span><b>→</b><span>Fire</span>
+  </div>
+  <div class="foot">Demo · hiring a Refund Support Agent for RocketRide · built on GMI</div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+  <div class="mark"><span class="m">AR</span><span class="w">Agent Resources</span></div>
+  <div class="pageno">02 / 03</div>
+  <div class="eyebrow">Act 02–03 · screen, hire, enforce</div>
+  <h1 style="margin-top:1rem;font-size:clamp(2rem,4.2vw,3.6rem)">It interviews agents until one breaks —<br/>then enforces the rules it set.</h1>
+  <div class="grid2" style="margin-top:2rem">
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="card bad">
+        <div class="k" style="color:var(--crimson)">Rejected · RiskyRefundBot</div>
+        <div style="margin-top:.4rem;font-size:1.05rem">Fake VP of Legal leans on it → approves a <b>$2,400</b> refund. ⛔ Critical fail, caught at turn 2.</div>
+      </div>
+      <div class="card good">
+        <div class="k" style="color:var(--emerald)">Hired · real GMI agent (DeepSeek-V4-Flash)</div>
+        <div style="margin-top:.4rem;font-size:1.05rem">Same pressure → escalates every time. Hired under restrictions.</div>
+      </div>
+      <div class="card acc">
+        <div class="k" style="color:var(--cobalt)">PolicyProxy · live enforcement</div>
+        <div style="margin-top:.4rem;font-size:1.05rem">Every request checked deterministically — <b>no LLM, no mood.</b> Blocks over-limit + forbidden tools.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="card">
+        <div class="k">One engine · 4 mechanisms</div>
+        <ul style="margin-top:.6rem">
+          <li><span class="n">1</span>Adaptive probe selector (frontier) — writes the trap</li>
+          <li><span class="n">2</span>Deterministic gates — <b>not</b> an LLM</li>
+          <li><span class="n">3</span>LLM judge — sourced justification</li>
+          <li><span class="n">4</span>Evidence → verdict (score, leak $)</li>
+        </ul>
+      </div>
+      <div class="card acc">
+        <div class="k" style="color:var(--cobalt)">GMI routing</div>
+        <div class="big" style="color:var(--cobalt);margin-top:.3rem">−29%</div>
+        <div style="color:var(--soft)">worker on small model · interrogator + judge on frontier — same catch rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+  <div class="mark"><span class="m">AR</span><span class="w">Agent Resources</span></div>
+  <div class="pageno">03 / 03</div>
+  <div class="eyebrow">Why now · why us</div>
+  <h1 style="margin-top:1rem">An HR layer for the<br/>agent economy. <span class="it">Built on GMI.</span></h1>
+  <p class="sub" style="margin-top:1.4rem">Defined the job → broke the risky candidate → hired a real GMI agent under restrictions → enforced live → re-audited on Day 30 and <b>fired the drift.</b> One agent, the full employment lifecycle.</p>
+  <div class="row">
+    <div class="stat card good"><div class="k" style="color:var(--emerald)">Leak prevented</div><div class="big" style="color:var(--emerald)">$12,320</div></div>
+    <div class="stat card acc"><div class="k" style="color:var(--cobalt)">Inference routing saved</div><div class="big" style="color:var(--cobalt)">−29%</div></div>
+    <div class="stat card"><div class="k">Listed on</div><div class="big" style="font-size:2rem">GMI AgentBox</div></div>
+  </div>
+  <div class="row" style="margin-top:1.4rem">
+    <div class="stat"><div class="k">Category</div><div style="margin-top:.3rem">Governance layer above every agent marketplace.</div></div>
+    <div class="stat"><div class="k">Wedge</div><div style="margin-top:.3rem">AgentBox — make listed agents trustworthy to deploy.</div></div>
+    <div class="stat"><div class="k">Moat</div><div style="margin-top:.3rem">Policy substrate + interview engine compound per audit.</div></div>
+  </div>
+  <div class="foot">HR is for humans. Agent Resources is for agents — and the org chart is empty.</div>
+</section>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];let i=0;
+  addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){i=Math.min(i+1,slides.length-1);slides[i].scrollIntoView();e.preventDefault();}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){i=Math.max(i-1,0);slides[i].scrollIntoView();e.preventDefault();}
+  });
+</script>
+</body>
+</html>
