@@ -8,6 +8,7 @@
 - [x] **Deployed + LISTED on AgentBox** (the mandatory item) → **LIVE · Verified by GMI · CE + MaaS**
   - Listing: `https://console.gmicloud.ai/user-console/ie/agentbox/browse-agents/refund-support-agent`
   - Template ID: `6fc668c3-28da-4587-a969-4203bff53de3` (use with the GMI_MAAS_API_KEY shown once at register to spin instances via `POST /v1/agents/deployments/agent-resources-refund/tasks`)
+- [x] **Open-source repo (public)** → https://github.com/Oxyz-Studio/agent-resources
 - [ ] **Slides** into the Master Submission Deck — content in `docs/deck.html` (2 slides; 3rd = the live demo)
 - [ ] **Video OR live demo URL** — screen-record the demo (`npm run dev`, REPLAY)
 - [ ] **Butterbase** form — team + contact
