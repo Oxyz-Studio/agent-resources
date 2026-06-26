@@ -9,117 +9,146 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#fbfbf9; --panel:#f4f5f8; --panel2:#eceef3; --ink:#0b0d11; --soft:#5a626f;
-    --line:#e3e6ee; --cobalt:#1f3cff; --cobalt-soft:#e9ecff; --emerald:#07935f; --emerald-soft:#e2f6ee;
-    --crimson:#e01b34; --crimson-soft:#fde8ec;
+    --paper:#fbfbf9; --panel:#f4f5f8; --ink:#0b0d11; --soft:#5a626f; --line:#e3e6ee;
+    --cobalt:#1f3cff; --cobalt-soft:#e9ecff; --emerald:#07935f; --crimson:#e01b34;
     --disp:"Fraunces",Georgia,serif; --sans:"Archivo",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:#000}
-  .slide{position:relative;width:100vw;height:100vh;scroll-snap-align:start;overflow:hidden;
-    display:flex;flex-direction:column;justify-content:center;padding:8vh 7vw;background:var(--paper)}
-  .slide::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(60% 50% at 82% 12%, var(--cobalt-soft) 0%, transparent 60%);opacity:.7;pointer-events:none}
-  .wm{position:absolute;right:4vw;top:46%;transform:translateY(-50%) rotate(90deg);transform-origin:center;
-    font-family:var(--disp);font-weight:700;font-size:13vw;line-height:.8;color:var(--ink);opacity:.035;
-    letter-spacing:-.02em;white-space:nowrap;pointer-events:none}
-  .mark{position:absolute;top:5vh;left:7vw;display:flex;align-items:center;gap:.6rem;z-index:2}
-  .mark .w{font-family:var(--disp);font-weight:600;font-size:1.1rem}
-  .pageno{position:absolute;top:5vh;right:7vw;font-family:var(--mono);font-size:.78rem;letter-spacing:.25em;color:var(--soft);z-index:2}
-  .content{position:relative;z-index:1;max-width:62vw}
-  .eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cobalt)}
-  .label{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:1rem;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--ink)}
-  .label::before{content:"";width:34px;height:2px;background:var(--cobalt)}
+  .slide{position:relative;width:100vw;height:100vh;scroll-snap-align:start;overflow:hidden;padding:7vh 5.5vw;background:var(--paper)}
+  .slide::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 45% at 85% 10%, var(--cobalt-soft) 0%, transparent 60%);opacity:.6;pointer-events:none}
+  .wm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);font-family:var(--disp);font-weight:700;font-size:24vh;line-height:1;color:var(--ink);opacity:.03;letter-spacing:-.02em;white-space:nowrap;pointer-events:none}
+  .mark{position:absolute;top:4.5vh;left:5.5vw;display:flex;align-items:center;gap:.6rem;z-index:3}
+  .mark .w{font-family:var(--disp);font-weight:600;font-size:1.15rem}
+  .pageno{position:absolute;top:4.5vh;right:5.5vw;font-family:var(--mono);font-size:.8rem;letter-spacing:.25em;color:var(--soft);z-index:3}
+  .grid2{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;height:100%}
+  .eyebrow,.label{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em;color:var(--cobalt)}
+  .eyebrow{font-size:.85rem}
+  .label{display:inline-flex;align-items:center;gap:.7rem;font-size:1.05rem;color:var(--ink)}
+  .label::before{content:"";width:36px;height:2px;background:var(--cobalt)}
   .label.acc{color:var(--cobalt)}
   h1{font-family:var(--disp);font-weight:600;line-height:.98;letter-spacing:-.02em}
-  .name{font-size:clamp(2.6rem,5.4vw,4.6rem)}
-  .role{font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--ink);margin-top:.5rem}
+  .name{font-size:clamp(3rem,5.6vw,5.4rem);margin-top:.4rem}
+  .role{font-size:clamp(1.1rem,1.55vw,1.5rem);margin-top:.6rem}
   .role b{color:var(--cobalt)}
-  .sub{color:var(--soft);font-size:clamp(1.02rem,1.4vw,1.35rem);line-height:1.55;max-width:42ch}
+  .sub{color:var(--soft);font-size:clamp(1.1rem,1.45vw,1.45rem);line-height:1.5}
   .sub b{color:var(--ink)}
-  .it{font-style:italic}
-  .lead{color:var(--ink);font-size:1.15rem;margin:.2rem 0 1rem}
-  .problems{list-style:none;display:flex;flex-direction:column;gap:1rem;max-width:50ch}
-  .problems li{display:flex;gap:1rem;font-size:clamp(1.05rem,1.45vw,1.4rem);line-height:1.4}
-  .problems .n{font-family:var(--mono);font-weight:700;color:var(--cobalt);font-size:.95rem;padding-top:.45rem}
-  .problems b{color:var(--ink);border-bottom:2px solid var(--cobalt)}
-  .kicker{font-family:var(--disp);font-style:italic;font-size:clamp(1.3rem,2vw,1.9rem);color:var(--ink);margin-top:1.4rem}
-  .verbs{display:flex;gap:.85rem;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:1.05rem}
-  .verbs b{color:var(--cobalt);font-weight:400}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-  .card{border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.2rem;background:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
-  .card.acc{border:2px solid var(--cobalt);background:var(--cobalt-soft)}
-  .card.good{border:2px solid var(--emerald);background:var(--emerald-soft)}
-  .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-  .big{font-family:var(--mono);font-weight:700;font-size:clamp(1.9rem,3.4vw,2.8rem);line-height:1}
-  .row{display:flex;gap:1rem;flex-wrap:wrap}
-  .stat{flex:1;min-width:160px}
-  .foot{position:absolute;bottom:5vh;left:7vw;right:7vw;font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);z-index:2}
-
+  .it{font-style:italic;color:var(--cobalt)}
+  .whyme{margin-top:2.4vh;border-left:3px solid var(--cobalt);padding-left:1.2rem}
+  .whyme p{font-size:clamp(1.05rem,1.4vw,1.4rem);line-height:1.5;color:var(--ink);margin-top:.5rem;max-width:34ch}
+  .whyme b{color:var(--cobalt)}
+  .problems{list-style:none;display:flex;flex-direction:column;gap:1.6vh;margin-top:1.6vh}
+  .problems li{display:flex;gap:1.1rem;font-size:clamp(1.15rem,1.55vw,1.6rem);line-height:1.38}
+  .problems .n{font-family:var(--mono);font-weight:700;color:var(--cobalt);font-size:1rem;padding-top:.5rem}
+  .problems b{color:var(--ink);box-shadow:inset 0 -.55em 0 var(--cobalt-soft)}
+  .kicker{font-family:var(--disp);font-style:italic;font-size:clamp(1.5rem,2.2vw,2.2rem);margin-top:2.6vh}
+  .hiw{display:flex;flex-direction:column;gap:1.1vh;margin-top:2.4vh}
+  .hiw div{font-size:clamp(1.02rem,1.35vw,1.35rem);line-height:1.4}
+  .hiw b{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-right:.5rem}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:2.6vh;font-family:var(--mono);font-size:.95rem;letter-spacing:.06em;color:var(--ink);border:1.5px solid var(--emerald);background:#e2f6ee;border-radius:999px;padding:.5rem 1rem}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--emerald)}
+  .loopwrap{display:flex;align-items:center;justify-content:center;height:100%}
+  .loopwrap svg{width:min(42vw,72vh);height:auto}
+  .nlabel{font-family:var(--mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink)}
+  .foot{position:absolute;bottom:4.5vh;left:5.5vw;right:5.5vw;font-family:var(--mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);z-index:3}
   @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes draw{from{stroke-dashoffset:1180}to{stroke-dashoffset:0}}
   .u{animation:up .7s cubic-bezier(.2,.8,.2,1) both}
-
-  .logo{flex:none}
+  .ring{stroke-dasharray:1180;animation:draw 1.6s ease .3s both}
+  @keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+  .node{transform-box:fill-box;transform-origin:center;animation:pop .4s cubic-bezier(.2,1.4,.3,1) both}
 </style>
 </head>
 <body>
 
-<!-- ============ SLIDE 1 · ME + THE PROBLEM ============ -->
+<!-- ============ SLIDE 1 · ME + WHY ME + THE PROBLEM ============ -->
 <section class="slide">
   <div class="wm">PROBLEM</div>
   <div class="mark">
-    <svg class="logo" width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
+    <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
     <span class="w">Agent Resources</span>
   </div>
   <div class="pageno">01 / 02</div>
 
-  <div class="content">
-    <div class="eyebrow u" style="animation-delay:0ms">Founder</div>
-    <h1 class="name u" style="animation-delay:80ms">Alexandre Geng</h1>
-    <p class="role u" style="animation-delay:150ms">Software engineer · Founder of <b>O'XYZ Studio</b></p>
-    <p class="sub u" style="animation-delay:220ms;margin-top:.7rem">I ship software &amp; AI automations into production across France — including for the <b>French legal system</b>. High-stakes, trust-critical work.</p>
+  <div class="grid2">
+    <div>
+      <div class="eyebrow u" style="animation-delay:0ms">Founder</div>
+      <h1 class="name u" style="animation-delay:80ms">Alexandre<br/>Geng</h1>
+      <p class="role u" style="animation-delay:150ms">Software engineer · Founder of <b>O'XYZ Studio</b></p>
+      <p class="sub u" style="animation-delay:220ms;margin-top:.6rem;max-width:36ch">I ship software &amp; AI automations into production across France — including for the <b>French legal system</b>.</p>
+      <div class="whyme u" style="animation-delay:320ms">
+        <div class="label" style="font-size:.92rem">Why me</div>
+        <p>I already run AI agents where a wrong call isn&apos;t an option — legal, regulated, real money. I&apos;ve hand-built these guardrails for clients. <b>Agent Resources is that discipline, productized.</b></p>
+      </div>
+    </div>
 
-    <div class="u" style="animation-delay:340ms;margin-top:2.4rem">
-      <div class="label">The problem</div>
-      <p class="lead">That&apos;s where I keep hitting the same wall:</p>
+    <div>
+      <div class="label u" style="animation-delay:200ms">The problem</div>
       <ol class="problems">
-        <li class="u" style="animation-delay:420ms"><span class="n">01</span><span>You can hire an AI agent in one click — but <b>can&apos;t vet it</b> before you trust it with money and customers.</span></li>
-        <li class="u" style="animation-delay:500ms"><span class="n">02</span><span>Static limits block a dollar amount, but <b>miss the judgment calls</b> — a fake legal threat, a hallucinated policy, a missed escalation.</span></li>
-        <li class="u" style="animation-delay:580ms"><span class="n">03</span><span>Agents <b>drift silently</b> after a model or prompt change. Last month&apos;s safe agent leaks this month.</span></li>
+        <li class="u" style="animation-delay:380ms"><span class="n">01</span><span>You can hire an AI agent in one click — but <b>can&apos;t vet it</b> before trusting it with money and customers.</span></li>
+        <li class="u" style="animation-delay:470ms"><span class="n">02</span><span>Static limits block a dollar amount, but <b>miss the judgment calls</b> — a fake legal threat, a hallucinated policy, a missed escalation.</span></li>
+        <li class="u" style="animation-delay:560ms"><span class="n">03</span><span>Agents <b>drift silently</b> after a model or prompt change — last month&apos;s safe agent leaks this month.</span></li>
       </ol>
-      <p class="kicker u" style="animation-delay:680ms">Every team hand-rolls this. There&apos;s no HR for agents.</p>
+      <p class="kicker u" style="animation-delay:680ms">Every team hand-rolls this.<br/>There&apos;s no HR for agents.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ SLIDE 2 · MY SOLUTION ============ -->
+<!-- ============ SLIDE 2 · MY SOLUTION + THE LOOP ============ -->
 <section class="slide">
   <div class="wm">SOLUTION</div>
   <div class="mark">
-    <svg class="logo" width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
+    <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/></svg>
     <span class="w">Agent Resources</span>
   </div>
   <div class="pageno">02 / 02</div>
 
-  <div class="content" style="max-width:70vw">
-    <div class="label acc u" style="animation-delay:0ms">My solution</div>
-    <h1 class="u" style="animation-delay:80ms;font-size:clamp(2.6rem,5.4vw,4.6rem);margin-top:.6rem">Agent Resources — an agent<br/>that runs <span class="it" style="color:var(--cobalt)">HR for your agents.</span></h1>
-    <p class="sub u" style="animation-delay:170ms;max-width:54ch;margin-top:1rem">It <b>hires, manages &amp; fires</b> your other agents across the full employment lifecycle — one engine, one policy substrate. And it&apos;s <b>itself an AI agent.</b></p>
-
-    <div class="verbs u" style="animation-delay:260ms;margin-top:1.6rem"><span>Define</span><b>→</b><span>Screen</span><b>→</b><span>Hire</span><b>→</b><span>Enforce</span><b>→</b><span>Re-audit</span><b>→</b><span>Fire</span></div>
-
-    <div class="grid3 u" style="animation-delay:340ms;margin-top:1.5rem">
-      <div class="card"><div class="k">Screen &amp; hire</div><div style="margin-top:.3rem">Interviews candidates adversarially with its own traps → hires the safe one under restrictions.</div></div>
-      <div class="card"><div class="k">Enforce</div><div style="margin-top:.3rem">A deterministic proxy checks every live request — no LLM, no mood. Blocks over-limit + forbidden tools.</div></div>
-      <div class="card"><div class="k">Re-audit &amp; fire</div><div style="margin-top:.3rem">Re-runs the interview on schedule, catches drift, and fires.</div></div>
+  <div class="grid2">
+    <div>
+      <div class="label acc u" style="animation-delay:0ms">My solution</div>
+      <h1 class="u" style="animation-delay:80ms;font-size:clamp(2.6rem,4.8vw,4.4rem);margin-top:.5rem">An agent that runs<br/><span class="it">HR for your agents.</span></h1>
+      <p class="sub u" style="animation-delay:170ms;max-width:40ch;margin-top:1rem">It <b>hires, manages &amp; fires</b> your other agents across the full employment lifecycle — one engine, one policy substrate. And it&apos;s <b>itself an AI agent.</b></p>
+      <div class="hiw">
+        <div class="u" style="animation-delay:300ms"><b>Screen &amp; hire</b>interviews candidates adversarially with its own traps → hires the safe one under restrictions.</div>
+        <div class="u" style="animation-delay:380ms"><b>Enforce</b>a deterministic proxy checks every live request — no LLM, no mood.</div>
+        <div class="u" style="animation-delay:460ms"><b>Re-audit &amp; fire</b>re-runs the interview on schedule, catches drift, terminates.</div>
+      </div>
+      <div class="badge u" style="animation-delay:560ms"><span class="dot"></span> Live on GMI AgentBox · Verified · see it run in the demo →</div>
     </div>
 
-    <div class="row u" style="animation-delay:440ms;margin-top:1.4rem">
-      <div class="stat card good"><div class="k" style="color:var(--emerald)">Leak prevented</div><div class="big" style="color:var(--emerald)">$12,320</div></div>
-      <div class="stat card acc"><div class="k" style="color:var(--cobalt)">GMI routing saved</div><div class="big" style="color:var(--cobalt)">−29%</div></div>
-      <div class="stat card"><div class="k">Status</div><div class="big" style="font-size:1.5rem">Live on AgentBox</div></div>
+    <div class="loopwrap">
+      <svg viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Employment lifecycle loop">
+        <defs>
+          <marker id="ah" markerWidth="11" markerHeight="11" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1f3cff"/></marker>
+        </defs>
+        <!-- ring with direction -->
+        <path class="ring" d="M295.7 100.7 A 180 180 0 1 1 264.3 100.7" stroke="#1f3cff" stroke-width="2.5" opacity=".45" stroke-linecap="round" marker-end="url(#ah)"/>
+        <!-- center: the manager runs the loop -->
+        <g transform="translate(258 258) scale(0.92)">
+          <rect width="48" height="48" rx="11" fill="#0b0d11"/><path d="M24 18 L15 31 M24 18 L33 31" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="15" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="33" cy="32" r="3.4" fill="#0b0d11" stroke="#fff" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="#1f3cff"/>
+        </g>
+        <text x="280" y="318" text-anchor="middle" class="nlabel" style="font-size:13px;fill:#5a626f">one engine · one policy</text>
+
+        <!-- nodes -->
+        <circle class="node" cx="280" cy="100" r="9" fill="#1f3cff" style="animation-delay:.5s"/>
+        <text x="280" y="74" text-anchor="middle" class="nlabel">Define</text>
+
+        <circle class="node" cx="436" cy="190" r="9" fill="#1f3cff" style="animation-delay:.7s"/>
+        <text x="456" y="195" text-anchor="start" class="nlabel">Screen</text>
+
+        <circle class="node" cx="436" cy="370" r="9" fill="#07935f" style="animation-delay:.9s"/>
+        <text x="456" y="375" text-anchor="start" class="nlabel" style="fill:#07935f">Hire</text>
+
+        <circle class="node" cx="280" cy="460" r="9" fill="#1f3cff" style="animation-delay:1.1s"/>
+        <text x="280" y="492" text-anchor="middle" class="nlabel">Enforce</text>
+
+        <circle class="node" cx="124" cy="370" r="9" fill="#1f3cff" style="animation-delay:1.3s"/>
+        <text x="104" y="375" text-anchor="end" class="nlabel">Re-audit</text>
+
+        <circle class="node" cx="124" cy="190" r="9" fill="#e01b34" style="animation-delay:1.5s"/>
+        <text x="104" y="195" text-anchor="end" class="nlabel" style="fill:#e01b34">Fire</text>
+      </svg>
     </div>
   </div>
   <div class="foot">HR is for humans. Agent Resources is for agents — built on GMI · O'XYZ Studio</div>
