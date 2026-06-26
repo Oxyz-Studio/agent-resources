@@ -33,7 +33,9 @@ Demo flow: **Hero → ① Define the job (Intake) → ② Screen & hire (intervi
 ## Built on GMI
 
 - **MaaS** — all inference via the OpenAI-compatible API (one key, 200+ models). Worker on a small model (`DeepSeek-V4-Flash`), interrogator + judge on frontier (`claude-opus-4.8`); small-vs-frontier routing is shown live (~−29% vs all-frontier).
-- **AgentBox** — the candidate **Refund Support Agent** is containerized (`agentbox-candidate/`, `/run` on :8080) and **deployed + listed live on GMI AgentBox** (Verified by GMI · CE + MaaS).
+- **AgentBox** — two agents are containerized and **deployed + listed live on GMI AgentBox** (Verified by GMI · CE + MaaS):
+  - the candidate **Refund Support Agent** — the worker (`agentbox-candidate/`, `/run` on :8080).
+  - **Agent Resources** itself — the manager (`agentbox-manager/`, `/run` on :8080): give it any agent's run URL and it interviews it adversarially and returns a hiring verdict. The recursive pitch, live on the marketplace.
 
 ## Architecture
 
@@ -45,7 +47,8 @@ src/
   agentbox/adapter.ts       # candidate call seam: replay → AgentBox URL → local-GMI fallback
   lib/                      # policy substrate, fixtures, ROI
   components/manager/        # the 4-screen cockpit (Hero, Intake, Screening, Runtime) + state hook
-agentbox-candidate/         # standalone /run container deployed on AgentBox
+agentbox-candidate/         # the worker: standalone /run container deployed on AgentBox
+agentbox-manager/           # the manager: Agent Resources itself, as a hireable /run agent on AgentBox
 docs/                       # design spec + pitch deck
 ```
 
