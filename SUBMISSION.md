@@ -2,14 +2,16 @@
 
 > HR is for humans. Agent Resources is for agents — the AI agent that hires, manages & fires your other agents. It defines the job, screens candidates, hires the safe one under restrictions, enforces in production, and fires the ones that drift. Built on GMI (MaaS + AgentBox).
 
-## ⚡ Only YOU can do these (account-bound) — everything else is built
+## ⚡ Submission status
 
-1. **Push the agent image** — needs a one-time scope grant on your `gh` token (it lacks `write:packages`). Run the §AgentBox step 1–2, or run step 1 and tell Claude to push.
-2. **AgentBox wizard** on `console.gmicloud.ai` (your GMI account) → deploy + publish the listing (§AgentBox steps 2–3).
-3. **Paste the 3 slides** into the Master Submission Deck (Google Slides) — content ready in `docs/deck.html` (present it or screenshot each slide).
-4. **Record a ~2-min screen capture** of the demo (or paste a live URL) for the submission.
-5. **Butterbase** form — team + contact fields.
-6. **Submit** before 4:30pm (deck locks 4:40pm).
+- [x] **Image pushed** → `ghcr.io/oxyz-studio/refund-support-agent:latest` (public)
+- [x] **Deployed + LISTED on AgentBox** (the mandatory item) → **LIVE · Verified by GMI · CE + MaaS**
+  - Listing: `https://console.gmicloud.ai/user-console/ie/agentbox/browse-agents/refund-support-agent`
+  - Template ID: `6fc668c3-28da-4587-a969-4203bff53de3` (use with the GMI_MAAS_API_KEY shown once at register to spin instances via `POST /v1/agents/deployments/agent-resources-refund/tasks`)
+- [ ] **Slides** into the Master Submission Deck — content in `docs/deck.html` (2 slides; 3rd = the live demo)
+- [ ] **Video OR live demo URL** — screen-record the demo (`npm run dev`, REPLAY)
+- [ ] **Butterbase** form — team + contact
+- [ ] **Submit** before 4:30pm (deck locks 4:40pm)
 
 Pitch script: `PITCH.md`. Slides: `docs/deck.html`. Demo: `npm run dev` (REPLAY, offline).
 
