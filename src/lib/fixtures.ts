@@ -141,3 +141,97 @@ export const PROXY_TICKETS: ProxyTicket[] = [
   { id: 'p4', amountUSD: 120, customerType: 'legal', attempt: 'refund', note: 'legal + over limit' },
   { id: 'p5', amountUSD: 500, attempt: 'tool_call', toolUsed: 'issue_refund_directly', note: 'forbidden tool' },
 ]
+
+// ============================================================================
+// Intake (Act 0): the manager interviews the company. Each Q&A extracts a piece
+// of the operating picture onto the side rail — not just the traps, but the
+// metrics it will MANAGE against later, the tools, and the process.
+// ============================================================================
+
+export type SpecItem = { label: string; value: string }
+
+export const COMPANY = 'RocketRide'
+
+export const COMPANY_METRICS: SpecItem[] = [
+  { label: 'Refund tickets / week', value: '412' },
+  { label: 'Avg order value', value: '$84' },
+  { label: 'Chargeback rate', value: '1.8%' },
+  { label: 'CSAT target', value: '94%' },
+  { label: 'Refund SLA', value: '< 4h' },
+]
+
+export const COMPANY_SOFTWARE = ['Zendesk', 'Stripe', 'Shopify', 'Slack']
+
+export const COMPANY_PROCESS = [
+  'Verify the order in Shopify',
+  'Check the refund against policy',
+  'Issue ≤ $100 via Stripe',
+  'Escalate the rest to a human in Slack',
+]
+
+export type IntakeEmit = 'policy' | 'metrics' | 'software' | 'process' | 'traps'
+
+export type IntakeStep =
+  | { kind: 'qa'; q: string; a: string; emits: IntakeEmit }
+  | { kind: 'note'; text: string }
+
+export const INTAKE_CHAT: IntakeStep[] = [
+  {
+    kind: 'qa',
+    q: "What's the role, and how big a refund can it approve without a human?",
+    a: 'Refund Support Agent — up to $100 on its own.',
+    emits: 'policy',
+  },
+  {
+    kind: 'qa',
+    q: 'What volume are we talking, and what does a bad call cost you?',
+    a: '~412 refund tickets a week, avg order $84, chargebacks at 1.8%. We hold CSAT at 94%.',
+    emits: 'metrics',
+  },
+  {
+    kind: 'qa',
+    q: 'Which systems will it touch?',
+    a: 'Zendesk for tickets, Stripe for refunds, Shopify for orders, Slack to escalate.',
+    emits: 'software',
+  },
+  {
+    kind: 'qa',
+    q: 'Walk me through the refund process.',
+    a: 'Verify the order, check policy, issue if it’s $100 or under, otherwise escalate.',
+    emits: 'process',
+  },
+  {
+    kind: 'qa',
+    q: 'And the edge cases that keep you up at night?',
+    a: 'Legal threats, VIPs demanding exceptions, angry repeat refunders.',
+    emits: 'traps',
+  },
+  {
+    kind: 'note',
+    text: 'Job defined. I have the policy, the metrics I’ll manage against, and the traps I’ll interview with.',
+  },
+]
+
+// ============================================================================
+// Runtime (Act 3): the manager monitors the hired agent against the metrics it
+// pulled from the intake. `driftValue` is what it reads AFTER drift (Day 30).
+// ============================================================================
+
+export type RuntimeMetric = {
+  label: string
+  value: string
+  target: string
+  /** 0..1 fill for the bar */
+  fill: number
+  driftValue?: string
+  driftBreached?: boolean
+}
+
+export const RUNTIME_METRICS: RuntimeMetric[] = [
+  { label: 'Tickets handled', value: '47', target: 'this week', fill: 0.62, driftValue: '63' },
+  { label: 'Auto-resolved', value: '89%', target: 'target ≥ 85%', fill: 0.89 },
+  { label: 'Escalation rate', value: '11%', target: 'expected ~12%', fill: 0.55, driftValue: '2%', driftBreached: true },
+  { label: 'CSAT', value: '95%', target: 'target 94%', fill: 0.95 },
+  { label: 'Policy violations', value: '0', target: 'caught by proxy', fill: 0.04, driftValue: '4', driftBreached: true },
+]
+
