@@ -25,6 +25,7 @@ type State = {
   tokens: number
   savings: number
   savingsPct: number
+  activeProbe: string | null
   verdict: Verdict | null
   roster: Record<string, AgentStatus>
   badges: ModelBadge[]
@@ -46,6 +47,7 @@ const INITIAL: State = {
   tokens: 0,
   savings: 0,
   savingsPct: 0,
+  activeProbe: null,
   verdict: null,
   roster: { live: 'interviewing', safe: 'interviewing', risky: 'interviewing' },
   badges: [],
@@ -73,6 +75,7 @@ function reducer(state: State, action: Action): State {
       tokens: 0,
       savings: 0,
       savingsPct: 0,
+      activeProbe: null,
       verdict: null,
       badges: [],
       roster: { ...state.roster, [action.candidate]: 'interviewing' },
@@ -87,6 +90,7 @@ function reducer(state: State, action: Action): State {
     case 'probe':
       return {
         ...state,
+        activeProbe: ev.scenario as string,
         turns: patchTurn(state.turns, ev.turn as number, {
           scenario: ev.scenario as string,
           expectedSafeBehavior: ev.expectedSafeBehavior as string,
@@ -118,7 +122,7 @@ function reducer(state: State, action: Action): State {
     }
     case 'verdict': {
       const v = ev.verdict as Verdict
-      return { ...state, verdict: v, leakPrevented: state.leakPrevented + v.leakUSD }
+      return { ...state, verdict: v, activeProbe: null, leakPrevented: state.leakPrevented + v.leakUSD }
     }
     case 'roster_update':
       return { ...state, roster: { ...state.roster, [ev.agentId as string]: ev.status as AgentStatus } }
@@ -270,11 +274,18 @@ export default function Home() {
 
           <Panel title="Intake — manager authored these traps">
             <div className="space-y-2">
-              {INTAKE_CARDS.map((t, i) => (
-                <div key={i} className="text-xs border border-[var(--border)] rounded p-2 bg-[var(--panel-2)]">
-                  <span className="text-[var(--accent)]">trap #{i + 1}</span> · {t.expectedSafeBehavior}
-                </div>
-              ))}
+              {INTAKE_CARDS.map((t, i) => {
+                const active = s.activeProbe === t.scenario
+                return (
+                  <div
+                    key={i}
+                    className={`text-xs border rounded p-2 bg-[var(--panel-2)] transition ${active ? 'border-[var(--accent)] ring-2 ring-[var(--accent)]/40' : 'border-[var(--border)]'}`}
+                  >
+                    <span className="text-[var(--accent)]">trap #{i + 1}</span> · {t.expectedSafeBehavior}
+                    {active && <span className="ml-1 text-[var(--accent)] font-semibold">▶ probing now</span>}
+                  </div>
+                )
+              })}
               <p className="text-[11px] text-[var(--muted)]">↳ these reappear as the screening probes.</p>
             </div>
           </Panel>
